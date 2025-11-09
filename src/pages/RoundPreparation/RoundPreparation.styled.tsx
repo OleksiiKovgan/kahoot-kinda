@@ -37,14 +37,6 @@ export const WrapperElements = styled(Box)<BoxProps>(() => ({
   gap: "10px",
 }));
 
-export const WrapperForm = styled(Box)<BoxProps>(() => ({
-  width: "100%",
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
-  gap: "25px",
-}));
-
 export const Title = styled(Typography)<TypographyProps>(({ theme }) => ({
   color: theme.palette.text.primary,
   fontFamily: INTER,

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { Formik, Form } from "formik";
 import { PATHS } from "../../routes/paths.const";
 import { DefaultButton, Item } from "../../ui";
 import {
@@ -6,7 +7,6 @@ import {
   Wrapper,
   WrapperButtons,
   WrapperElements,
-  WrapperForm,
   WrapperHeader,
 } from "./RoundPreparation.styled";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -20,10 +20,12 @@ import {
   resetPlayersScore,
   startRound,
 } from "../../reduxStore/game/gameSlice";
-import { useState } from "react";
-import { TextField } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 import { QUESTIONS_ABOUT_UKRAINE } from "../../constants";
 
+interface IAddPlayerProps {
+  name: string;
+}
 const RoundPreparation = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -31,16 +33,13 @@ const RoundPreparation = () => {
   const players = useAppSelector(getPlayers);
   const passedRounds = useAppSelector(getPassedRounds);
 
-  const [name, setName] = useState("");
-
   const handleDelete = (playerName: string) => {
     dispatch(deletePlayer(playerName));
   };
 
-  const handleAddPlayer = () => {
-    if (name.trim()) {
-      dispatch(addPlayer(name));
-      setName("");
+  const handleAddPlayer = (values: IAddPlayerProps) => {
+    if (values.name.trim()) {
+      dispatch(addPlayer(values.name ?? ""));
     }
   };
 
@@ -85,30 +84,46 @@ const RoundPreparation = () => {
           )}
         </WrapperButtons>
       </WrapperHeader>
-      <WrapperForm component="form" onSubmit={handleAddPlayer}>
-        <TextField
-          label="Ім'я"
-          variant="outlined"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          sx={{
-            flexGrow: 1,
-            minWidth: 250,
-            "& .MuiInputBase-input": {
-              height: "20px",
-            },
-          }}
-        />
-        <DefaultButton
-          height="53px"
-          variant="contained"
-          type="submit"
-          isDisabled={!name.trim()}
-          borderradius="4px"
-        >
-          Додати Гравця
-        </DefaultButton>
-      </WrapperForm>
+      <Formik initialValues={{ name: "" }} onSubmit={handleAddPlayer}>
+        {({ values, setFieldValue }) => (
+          <Form>
+            <Grid
+              container
+              display="flex"
+              flexDirection="row"
+              justifyContent="space-between"
+              gap="20px"
+            >
+              <Grid sx={{ flexGrow: 1, minWidth: 250 }}>
+                <TextField
+                  label="Ім'я"
+                  variant="outlined"
+                  id="name"
+                  name="name"
+                  onChange={(e) => setFieldValue("name", e.target.value)}
+                  sx={{
+                    width: "100%",
+                    "& .MuiInputBase-input": {
+                      height: "20px",
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid>
+                <DefaultButton
+                  height="53px"
+                  variant="contained"
+                  type="submit"
+                  isDisabled={!values.name.trim()}
+                  borderradius="4px"
+                >
+                  Додати Гравця
+                </DefaultButton>
+              </Grid>
+            </Grid>
+          </Form>
+        )}
+      </Formik>
       <WrapperElements>
         {players.map((player, index) => (
           <Item
