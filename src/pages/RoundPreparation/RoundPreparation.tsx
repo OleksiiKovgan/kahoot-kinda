@@ -24,7 +24,7 @@ import { Grid, TextField } from "@mui/material";
 import { QUESTIONS_ABOUT_UKRAINE } from "../../constants";
 
 interface IAddPlayerProps {
-  name: string;
+  name: string | null;
 }
 const RoundPreparation = () => {
   const navigate = useNavigate();
@@ -37,9 +37,17 @@ const RoundPreparation = () => {
     dispatch(deletePlayer(playerName));
   };
 
-  const handleAddPlayer = (values: IAddPlayerProps) => {
-    if (values.name.trim()) {
+  const handleAddPlayer = (
+    values: IAddPlayerProps,
+    actions: {
+      resetForm: () => void;
+      setSubmitting: (isSubmitting: boolean) => void;
+    }
+  ) => {
+    if (values.name && values.name.trim()) {
       dispatch(addPlayer(values.name ?? ""));
+      actions.resetForm();
+      actions.setSubmitting(false);
     }
   };
 
@@ -84,7 +92,7 @@ const RoundPreparation = () => {
           )}
         </WrapperButtons>
       </WrapperHeader>
-      <Formik initialValues={{ name: "" }} onSubmit={handleAddPlayer}>
+      <Formik initialValues={{ name: null }} onSubmit={handleAddPlayer}>
         {({ values, setFieldValue }) => (
           <Form>
             <Grid
@@ -100,6 +108,7 @@ const RoundPreparation = () => {
                   variant="outlined"
                   id="name"
                   name="name"
+                  value={values.name ?? ""}
                   onChange={(e) => setFieldValue("name", e.target.value)}
                   sx={{
                     width: "100%",
@@ -114,7 +123,7 @@ const RoundPreparation = () => {
                   height="53px"
                   variant="contained"
                   type="submit"
-                  isDisabled={!values.name.trim()}
+                  isDisabled={!values.name}
                   borderradius="4px"
                 >
                   Додати Гравця
