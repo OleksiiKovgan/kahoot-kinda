@@ -7,12 +7,7 @@ import {
   getRound,
 } from "../../reduxStore/game/gameSelectors";
 import { DefaultButton, Question } from "../../ui";
-import {
-  AppBarSpacer,
-  StyledToolbar,
-  Wrapper,
-  WrapperQuestions,
-} from "./Round.styled";
+import { StyledToolbar, Wrapper, WrapperQuestions } from "./Round.styled";
 import { QUESTIONS_ABOUT_UKRAINE } from "../../constants";
 import { getItemRank } from "../../utils";
 import { AppBar } from "@mui/material";
@@ -38,7 +33,7 @@ const Round = () => {
 
   return (
     <Wrapper>
-      <AppBar position="fixed">
+      <AppBar position="sticky">
         <StyledToolbar>
           {players.map((player, index) => (
             <DefaultButton
@@ -64,8 +59,6 @@ const Round = () => {
           ))}
         </StyledToolbar>
       </AppBar>
-
-      <AppBarSpacer />
 
       <WrapperQuestions>
         {QUESTIONS_ABOUT_UKRAINE.map((question, index) => (

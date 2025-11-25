@@ -10,7 +10,9 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import storageSession from "redux-persist/lib/storage/session";
+import storage from "redux-persist/lib/storage";
 import playersSlice from "./game/gameSlice";
+import themeSlice from "./theme/themeSlice";
 
 const persistGameConfig = {
   key: "game",
@@ -18,8 +20,15 @@ const persistGameConfig = {
   blacklist: [],
 };
 
+const persistThemeConfig = {
+  key: "theme",
+  storage: storage,
+  whitelist: ["mode"],
+};
+
 const rootReducer = combineReducers({
   game: persistReducer(persistGameConfig, playersSlice),
+  theme: persistReducer(persistThemeConfig, themeSlice),
 });
 
 const store = configureStore({

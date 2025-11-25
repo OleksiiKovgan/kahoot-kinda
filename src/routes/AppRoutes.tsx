@@ -1,16 +1,24 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "../App";
 import { PATHS } from "./paths.const";
-import { Round, RoundPreparation, WelcomePage } from "../pages";
+import { MainLayoutPage, Round, RoundPreparation, WelcomePage } from "../pages";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      { path: PATHS.WELCOME_PAGE.template, element: <WelcomePage /> },
-      { path: PATHS.ROUND_PREPARATION.template, element: <RoundPreparation /> },
-      { path: PATHS.ROUND.template, element: <Round /> },
+      {
+        element: <MainLayoutPage />,
+        children: [
+          { path: PATHS.WELCOME_PAGE.template, element: <WelcomePage /> },
+          {
+            path: PATHS.ROUND_PREPARATION.template,
+            element: <RoundPreparation />,
+          },
+          { path: PATHS.ROUND.template, element: <Round /> },
+        ],
+      },
     ],
   },
 ]);

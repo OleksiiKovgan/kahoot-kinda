@@ -13,21 +13,17 @@ export const StyledDefaultButton = styled(Button)<IButtonProps>(
     width: width ? width : "fit-content",
     minWidth: width ? width : "20%",
     height: height ? height : "100px",
-    background: isselected
-      ? theme.palette.action.selected
-      : theme.palette.background.default,
+    background: isselected ? theme.palette.action.selected : "transparent",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     borderRadius: borderradius ? borderradius : "18px",
-    border: `1px solid ${theme.palette.tonalOffset}`,
+    border: `1px solid ${theme.palette.gray.main}`,
     padding: "15px",
     gap: "5px",
     "&:hover": {
       border: `1px solid ${theme.palette.action.active}`,
-      background: isselected
-        ? theme.palette.action.selected
-        : theme.palette.background.default,
+      background: isselected ? theme.palette.action.selected : "transparent",
     },
     color: theme.palette.text.primary,
     fontFamily: INTER,

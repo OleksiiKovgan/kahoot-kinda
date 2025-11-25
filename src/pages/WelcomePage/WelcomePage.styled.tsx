@@ -8,8 +8,8 @@ import {
 import { INTER } from "../../constants/fonts";
 
 export const Wrapper = styled(Box)<BoxProps>(() => ({
-  width: "100vw",
-  height: "100vh",
+  width: "100%",
+  padding: "10%",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",

@@ -14,7 +14,7 @@ export const Wrapper = styled(Box)<BoxProps>(({ theme }) => ({
   padding: "50px",
   gap: "20px",
   borderRadius: "16px",
-  border: `2px solid ${theme.palette.grey[400]}`,
+  border: `2px solid ${theme.palette.gray.main}`,
   boxSizing: "border-box",
 }));
 

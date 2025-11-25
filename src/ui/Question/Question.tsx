@@ -72,7 +72,7 @@ const Question = ({
               minWidth: 250,
               background:
                 isAlreadyAnswered && question.correctAnswer === answer
-                  ? "#50C878"
+                  ? theme.palette.success.main
                   : "",
               boxShadow: theme.shadows[1],
               "&:hover": {
