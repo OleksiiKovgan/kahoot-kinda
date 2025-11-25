@@ -52,7 +52,7 @@ const Question = ({
           <Title>{question.title}</Title>
         </Box>
         <DefaultButton
-          styles={{ background: "#89CFF0" }}
+          styles={{ background: theme.palette.info.main }}
           height="53px"
           isDisabled={isEverythingDisabled}
           onClick={handleGoToNextQuestion}
